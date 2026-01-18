@@ -4,15 +4,15 @@ import { 계산_조건에_맞는_적금_상품인지 } from 'savingsCalculator/u
 import { ReactNode } from 'react';
 
 type Props = {
-  filter: { term: Term; monthlyPayment: number };
+  filterBy: { term: Term; monthlyPayment: number };
   renderListItem: (savingsProduct: SavingsProduct) => ReactNode;
 };
 
-export default function SavingsProductList({ filter, renderListItem }: Props) {
+export default function SavingsProductList({ filterBy, renderListItem }: Props) {
   const { data, isLoading, error } = useSavingsProductListQuery({
     select: savingsProducts =>
       savingsProducts.filter(savingsProduct =>
-        계산_조건에_맞는_적금_상품인지({ savingsProduct, calculationInput: filter })
+        계산_조건에_맞는_적금_상품인지({ savingsProduct, calculationInput: filterBy })
       ),
   });
 

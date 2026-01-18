@@ -40,7 +40,7 @@ export function SavingsCalculatorPage() {
       <Spacing size={16} />
       <TermSelect
         label="저축 기간"
-        prompt="저축 기간을 선택해주세요"
+        title="저축 기간을 선택해주세요"
         value={term}
         onChange={setTerm}
         options={[
@@ -65,7 +65,7 @@ export function SavingsCalculatorPage() {
 
       {selectedTab === 'products' && (
         <SavingsProductList
-          filter={{ monthlyPayment, term }}
+          filterBy={{ monthlyPayment, term }}
           renderListItem={savingsProduct => {
             const isSelected = selectedSavingsProduct?.id === savingsProduct.id;
             return (
@@ -110,7 +110,7 @@ export function SavingsCalculatorPage() {
           <Spacing size={12} />
 
           <RecommendedSavingsProductList
-            filter={{ monthlyPayment, term }}
+            filterBy={{ monthlyPayment, term }}
             renderListItem={savingsProduct => {
               const isSelected = selectedSavingsProduct?.id === savingsProduct.id;
               return (

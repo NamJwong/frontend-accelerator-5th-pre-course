@@ -4,13 +4,13 @@ import { useSavingsProductListQuery } from 'savingsCalculator/useSavingsProductL
 import { 계산_조건에_맞는_적금_상품인지 } from 'savingsCalculator/utils';
 
 type Props = {
-  filter: { monthlyPayment: number; term: Term };
+  filterBy: { monthlyPayment: number; term: Term };
   renderListItem: (savingsProduct: SavingsProduct) => ReactNode;
 };
 
-export default function RecommendedSavingsProductList({ filter, renderListItem }: Props) {
+export default function RecommendedSavingsProductList({ filterBy, renderListItem }: Props) {
   const { data, isLoading, error } = useSavingsProductListQuery({
-    select: savingsProducts => getRecommendedSavingsProducts({ savingsProducts, filter }),
+    select: savingsProducts => getRecommendedSavingsProducts({ savingsProducts, filterBy }),
   });
 
   if (isLoading || data === undefined) {
@@ -26,13 +26,13 @@ export default function RecommendedSavingsProductList({ filter, renderListItem }
 
 function getRecommendedSavingsProducts({
   savingsProducts,
-  filter,
+  filterBy,
 }: {
   savingsProducts: SavingsProduct[];
-  filter: { monthlyPayment: number; term: Term };
+  filterBy: { monthlyPayment: number; term: Term };
 }) {
   return savingsProducts
-    .filter(savingsProduct => 계산_조건에_맞는_적금_상품인지({ savingsProduct, calculationInput: filter }))
+    .filter(savingsProduct => 계산_조건에_맞는_적금_상품인지({ savingsProduct, calculationInput: filterBy }))
     .sort((a, b) => b.annualRate - a.annualRate)
     .slice(0, 2);
 }
